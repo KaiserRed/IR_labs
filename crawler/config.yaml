@@ -1,0 +1,20 @@
+mongodb:
+  uri: "mongodb://localhost:27017"
+  database: "ir_labs"
+  collection: "documents"
+
+crawler:
+  workers: 5
+  rate_limit_ms: 200
+  retry_max: 3
+  retry_base_delay_ms: 1000
+  user_agent: "IR-Labs-Crawler/1.0"
+  api_base: "https://ru.wikipedia.org/w/api.php"
+  page_limit: 500
+
+categories:
+  - "Категория:Животные_по_алфавиту"
+  - "Категория:Растения_по_алфавиту"
+  - "Категория:Грибы_по_алфавиту"
+
+max_documents: 1000000
