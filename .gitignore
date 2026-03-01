@@ -1,6 +1,7 @@
 # Binaries
 crawler/crawler
 engine/engine
+web/web
 *.exe
 *.o
 *.bin
@@ -27,7 +28,6 @@ Thumbs.db
 *.png
 
 # Tex
-
 *.aux
 *.fls
 *.log
@@ -35,3 +35,6 @@ Thumbs.db
 *.fdb_latexmk
 *.gz
 *.toc
+
+
+*.csv
