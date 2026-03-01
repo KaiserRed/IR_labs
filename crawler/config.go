@@ -23,10 +23,11 @@ type CrawlerConfig struct {
 }
 
 type Config struct {
-	MongoDB      MongoConfig   `yaml:"mongodb"`
-	Crawler      CrawlerConfig `yaml:"crawler"`
-	Categories   []string      `yaml:"categories"`
-	MaxDocuments int           `yaml:"max_documents"`
+	MongoDB        MongoConfig   `yaml:"mongodb"`
+	Crawler        CrawlerConfig `yaml:"crawler"`
+	Categories     []string      `yaml:"categories"`
+	AnimalJournal  bool          `yaml:"animal_journal"`
+	MaxDocuments   int           `yaml:"max_documents"`
 }
 
 func LoadConfig(path string) (*Config, error) {

@@ -10,6 +10,7 @@ type Crawler struct {
 	config     *Config
 	db         *MongoDB
 	wiki       *WikiClient
+	animal     *AnimalJournalClient
 	http       *HTTPClient
 	downloaded int64
 }
@@ -21,10 +22,21 @@ func NewCrawler(cfg *Config, db *MongoDB) *Crawler {
 		db:     db,
 		http:   httpClient,
 		wiki:   NewWikiClient(httpClient, cfg.Crawler.APIBase),
+		animal: NewAnimalJournalClient(httpClient),
 	}
 }
 
 func (c *Crawler) Run() error {
+	if c.config.AnimalJournal {
+		log.Printf("=== Processing source: animaljournal.ru ===")
+		if err := c.crawlAnimalJournal(); err != nil {
+			log.Printf("Error crawling animaljournal: %v", err)
+		}
+		if atomic.LoadInt64(&c.downloaded) >= int64(c.config.MaxDocuments) {
+			return nil
+		}
+	}
+
 	for _, category := range c.config.Categories {
 		if atomic.LoadInt64(&c.downloaded) >= int64(c.config.MaxDocuments) {
 			break
@@ -35,6 +47,19 @@ func (c *Crawler) Run() error {
 		}
 	}
 	return nil
+}
+
+func (c *Crawler) crawlAnimalJournal() error {
+	return c.animal.Crawl(c.db, c.config.Crawler.Workers,
+		func() {
+			count := atomic.AddInt64(&c.downloaded, 1)
+			if count%50 == 0 {
+				dbCount, _ := c.db.GetDocumentCount()
+				log.Printf("Progress: %d downloaded this run, %d total in DB", count, dbCount)
+			}
+		},
+		func() bool { return atomic.LoadInt64(&c.downloaded) < int64(c.config.MaxDocuments) },
+	)
 }
 
 func (c *Crawler) crawlCategory(category string) error {

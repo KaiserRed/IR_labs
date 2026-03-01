@@ -59,7 +59,7 @@ func (c *HTTPClient) Get(url string) ([]byte, error) {
 		}
 
 		req.Header.Set("User-Agent", c.userAgent)
-		req.Header.Set("Accept", "application/json")
+		req.Header.Set("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
 
 		resp, err := c.client.Do(req)
 		if err != nil {

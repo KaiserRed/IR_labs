@@ -17,4 +17,6 @@ categories:
   - "Категория:Растения_по_алфавиту"
   - "Категория:Грибы_по_алфавиту"
 
+animal_journal: true  # https://animaljournal.ru/ — статьи о животных
+
 max_documents: 1000000
