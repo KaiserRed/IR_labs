@@ -24,9 +24,6 @@ __pycache__/
 .DS_Store
 Thumbs.db
 
-# Plots
-*.png
-
 # Tex
 *.aux
 *.fls
