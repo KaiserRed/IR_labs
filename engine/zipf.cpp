@@ -29,7 +29,7 @@ void ZipfAnalyzer::analyze(InvertedIndex* index) {
         sorted_[j + 1] = key;
     }
 
-    fprintf(stderr, "Zipf analysis: %d unique terms (term frequency, not document frequency)\n", sorted_.size());
+    fprintf(stderr, "Zipf analysis: %d unique terms\n", sorted_.size());
 }
 
 void ZipfAnalyzer::exportCSV(const char* filename) {

@@ -1,4 +1,3 @@
-// STL is allowed for tokenization only
 #include "tokenizer.h"
 #include <cctype>
 
